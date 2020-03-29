@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../interfaces/student';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 const STUDENTS_DATA: Student[] = [
   {
@@ -25,4 +26,15 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public columnDrop(event: CdkDragDrop<any>): void {
+    console.log();
+    this.swapColumns(event.previousIndex, event.currentIndex);
+  }
+
+  private swapColumns(previousIndex: number, currentIndex: number): void {
+    const previous = this.displayedColumns[previousIndex];
+
+    this.displayedColumns[previousIndex] = this.displayedColumns[currentIndex];
+    this.displayedColumns[currentIndex] = previous;
+  }
 }
