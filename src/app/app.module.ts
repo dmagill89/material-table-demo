@@ -10,6 +10,8 @@ import { TableComponent } from './table/table.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { StudentService } from './services/student/student.service';
 import { StoreModule } from '@ngrx/store';
+import { StudentReducer } from './reducers/student.reducer';
+import { SettingsReducer } from './reducers/settings.reducer';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { StoreModule } from '@ngrx/store';
     DragDropModule,
     NoopAnimationsModule,
     MatTableModule,
+    StoreModule.forRoot({students: StudentReducer, settings: SettingsReducer})
   ],
   providers: [
     StudentService
