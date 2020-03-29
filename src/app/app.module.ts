@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './table/table.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { StudentService } from './services/student/student.service';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
