@@ -28,7 +28,10 @@ export class TableComponent implements OnInit {
 
   public columnDrop(event: CdkDragDrop<any>): void {
     console.log();
-    this.swapColumns(event.previousIndex, event.currentIndex);
+    const previousIndex = this.displayedColumns.indexOf(event.previousContainer.data);
+    const currentIndex = this.displayedColumns.indexOf(event.container.data);
+
+    this.swapColumns(previousIndex, currentIndex);
   }
 
   private swapColumns(previousIndex: number, currentIndex: number): void {
