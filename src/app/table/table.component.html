@@ -1,7 +1,7 @@
-<table mat-table [dataSource]="students" cdkDropListGroup>
+<table mat-table matSort [dataSource]="students" cdkDropListGroup>
 
-    <ng-container *ngFor="let col of displayedColumns; let i=index;" matColumnDef="{{col}}" [sticky]="i==0">
-        <th mat-header-cell *matHeaderCellDef id="{{col}}" cdkDropList cdkDropListLockAxis="x"
+    <ng-container *ngFor="let col of settings$ | async; let i=index;" matColumnDef="{{col}}" [sticky]="i==0">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="{{col}}" cdkDropList cdkDropListLockAxis="x"
             cdkDropListOrientation="horizontal" (cdkDropListDropped)="columnDrop($event)"
             cdkDropListData="{{col}}">
             <div cdkDrag>

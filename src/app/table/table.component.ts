@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../interfaces/student';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 const STUDENTS_DATA: Student[] = [
   {
@@ -37,15 +39,18 @@ const STUDENTS_DATA: Student[] = [
 export class TableComponent implements OnInit {
 
   public students: Student[] = STUDENTS_DATA;
-  public displayedColumns: string[] = ['firstName', 'lastName', 'age', 'email']
+  public displayedColumns: string[] = ['firstName', 'lastName', 'age', 'email'];
   public displayHeaders: any = {
     firstName: 'First Name',
     lastName: 'Last Name',
     age: 'Age',
     email: 'Email'
   }
+  public settings$: Observable<any>;
 
-  constructor() { }
+  constructor(private store: Store<any>) {
+    this.settings$ = store.pipe(select(state => state.settings.columnOrder));
+  }
 
   ngOnInit(): void {
   }

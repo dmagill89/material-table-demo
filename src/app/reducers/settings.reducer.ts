@@ -1,6 +1,8 @@
 import { Action, createReducer } from '@ngrx/store';
 
-export const settingsInitialState: {[key: string]: any} = {};
+export const settingsInitialState: {[key: string]: any} = {
+    columnOrder: ['firstName', 'lastName', 'age', 'email']
+};
 
 const _settingsReducer = createReducer(settingsInitialState);
 
