@@ -4,10 +4,28 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 const STUDENTS_DATA: Student[] = [
   {
-    firstName: 'Ron',
-    lastName: 'Burgandy',
-    age: 57,
-    email: 'rburgandy@kwn.com'
+    firstName: 'Kenny',
+    lastName: 'McCormick',
+    age: 10,
+    email: 'kmccormick@southpark.edu'
+  },
+  {
+    firstName: 'Kyle',
+    lastName: 'Broflovski',
+    age: 10,
+    email: 'kbroflovski@southpark.edu'
+  },
+  {
+    firstName: 'Stan',
+    lastName: 'Marsh',
+    age: 10,
+    email: 'stan.marsh@southpark.edu'
+  },
+  {
+    firstName: 'Wendy',
+    lastName: 'Testaburger',
+    age: 10,
+    email: 'wtestaburger@southpark.edu'
   }
 ];
 
@@ -20,6 +38,12 @@ export class TableComponent implements OnInit {
 
   public students: Student[] = STUDENTS_DATA;
   public displayedColumns: string[] = ['firstName', 'lastName', 'age', 'email']
+  public displayHeaders: any = {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    age: 'Age',
+    email: 'Email'
+  }
 
   constructor() { }
 
