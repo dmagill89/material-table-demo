@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TableComponent } from './table/table.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { StudentService } from './services/student/student.service';
@@ -25,6 +26,7 @@ import { SettingsReducer } from './reducers/settings.reducer';
     DragDropModule,
     NoopAnimationsModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     StoreModule.forRoot({students: StudentReducer, settings: SettingsReducer})
   ],
   providers: [

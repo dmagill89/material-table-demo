@@ -3,6 +3,7 @@ import { Student } from '../interfaces/student';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { update } from '../actions/settings.actions';
 
 const STUDENTS_DATA: Student[] = [
   {
@@ -39,7 +40,6 @@ const STUDENTS_DATA: Student[] = [
 export class TableComponent implements OnInit {
 
   public students: Student[] = STUDENTS_DATA;
-  public displayedColumns: string[] = ['firstName', 'lastName', 'age', 'email'];
   public displayHeaders: any = {
     firstName: 'First Name',
     lastName: 'Last Name',
@@ -55,18 +55,21 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public columnDrop(event: CdkDragDrop<any>): void {
-    console.log();
-    const previousIndex = this.displayedColumns.indexOf(event.previousContainer.data);
-    const currentIndex = this.displayedColumns.indexOf(event.container.data);
+  public columnDrop(event: CdkDragDrop<any>, columnOrder: string[]): void {
+    const previousIndex = columnOrder.indexOf(event.previousContainer.data);
+    const currentIndex = columnOrder.indexOf(event.container.data);
+    const newColumnOrder = this.swapColumns(columnOrder, previousIndex, currentIndex);
 
-    this.swapColumns(previousIndex, currentIndex);
+    this.store.dispatch(update({order: newColumnOrder}));
   }
 
-  private swapColumns(previousIndex: number, currentIndex: number): void {
-    const previous = this.displayedColumns[previousIndex];
+  private swapColumns(columnOrder: string[], previousIndex: number, currentIndex: number): string[] {
+    const newColumnOrder = [...columnOrder];
+    const previous = newColumnOrder[previousIndex];
 
-    this.displayedColumns[previousIndex] = this.displayedColumns[currentIndex];
-    this.displayedColumns[currentIndex] = previous;
+    newColumnOrder[previousIndex] = newColumnOrder[currentIndex];
+    newColumnOrder[currentIndex] = previous;
+
+    return newColumnOrder;
   }
 }
