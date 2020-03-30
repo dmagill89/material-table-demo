@@ -13,6 +13,8 @@ import { StudentService } from './services/student/student.service';
 import { StoreModule } from '@ngrx/store';
 import { StudentReducer } from './reducers/student.reducer';
 import { SettingsReducer } from './reducers/settings.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { StudentEffects } from './effects/student.effects';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { SettingsReducer } from './reducers/settings.reducer';
     BrowserModule,
     AppRoutingModule,
     DragDropModule,
+    EffectsModule.forRoot([StudentEffects]),
     NoopAnimationsModule,
     MatTableModule,
     MatProgressSpinnerModule,

@@ -4,33 +4,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { update } from '../actions/settings.actions';
-
-const STUDENTS_DATA: Student[] = [
-  {
-    firstName: 'Kenny',
-    lastName: 'McCormick',
-    age: 10,
-    email: 'kmccormick@southpark.edu'
-  },
-  {
-    firstName: 'Kyle',
-    lastName: 'Broflovski',
-    age: 10,
-    email: 'kbroflovski@southpark.edu'
-  },
-  {
-    firstName: 'Stan',
-    lastName: 'Marsh',
-    age: 10,
-    email: 'stan.marsh@southpark.edu'
-  },
-  {
-    firstName: 'Wendy',
-    lastName: 'Testaburger',
-    age: 10,
-    email: 'wtestaburger@southpark.edu'
-  }
-];
+import { loadStudentData } from '../actions/student.actions';
 
 @Component({
   selector: 'app-table',
@@ -39,7 +13,6 @@ const STUDENTS_DATA: Student[] = [
 })
 export class TableComponent implements OnInit {
 
-  public students: Student[] = STUDENTS_DATA;
   public displayHeaders: any = {
     firstName: 'First Name',
     lastName: 'Last Name',
@@ -47,12 +20,16 @@ export class TableComponent implements OnInit {
     email: 'Email'
   }
   public settings$: Observable<any>;
+  public studentData$: Observable<Student[]>;
 
   constructor(private store: Store<any>) {
     this.settings$ = store.pipe(select(state => state.settings.columnOrder));
+    this.studentData$ = store.pipe(select(state => state.students));
+    store.dispatch(loadStudentData());
   }
 
   ngOnInit(): void {
+    this.store.dispatch(loadStudentData());
   }
 
   public columnDrop(event: CdkDragDrop<any>, columnOrder: string[]): void {
@@ -60,7 +37,7 @@ export class TableComponent implements OnInit {
     const currentIndex = columnOrder.indexOf(event.container.data);
     const newColumnOrder = this.swapColumns(columnOrder, previousIndex, currentIndex);
 
-    this.store.dispatch(update({order: newColumnOrder}));
+    this.store.dispatch(update({ order: newColumnOrder }));
   }
 
   private swapColumns(columnOrder: string[], previousIndex: number, currentIndex: number): string[] {

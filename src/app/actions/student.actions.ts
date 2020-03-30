@@ -1,3 +1,5 @@
-import {createAction} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
+import {Student} from '../interfaces/student'; 
 
-export const load = createAction('[Student] Load Students');
+export const loadStudentData = createAction('[Student] Load Students');
+export const storeStudentData = createAction('[Student] Store Students', props<{studentData: Student[]}>());
