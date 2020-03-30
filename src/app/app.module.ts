@@ -15,6 +15,7 @@ import { StudentReducer } from './reducers/student.reducer';
 import { SettingsReducer } from './reducers/settings.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentEffects } from './effects/student.effects';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { StudentEffects } from './effects/student.effects';
     EffectsModule.forRoot([StudentEffects]),
     NoopAnimationsModule,
     MatTableModule,
+    MatSortModule,
     MatProgressSpinnerModule,
     StoreModule.forRoot({students: StudentReducer, settings: SettingsReducer})
   ],

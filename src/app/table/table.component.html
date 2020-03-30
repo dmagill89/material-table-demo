@@ -1,7 +1,7 @@
 <ng-container *ngIf="(settings$ | async) as settings; else loading">
-    <ng-container *ngIf="(studentData$ | async) as students">
+    <ng-container *ngIf="students">
         <table mat-table matSort [dataSource]="students" cdkDropListGroup>
-            
+
             <ng-container *ngFor="let col of settings; let i=index;" matColumnDef="{{col}}" [sticky]="i==0">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header id="{{col}}" cdkDropList cdkDropListLockAxis="x"
                     cdkDropListOrientation="horizontal" (cdkDropListDropped)="columnDrop($event, settings)"

@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Student } from '../interfaces/student';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { update } from '../actions/settings.actions';
 import { loadStudentData } from '../actions/student.actions';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild(MatSort) sort: MatSort;
 
   public displayHeaders: any = {
     firstName: 'First Name',
@@ -21,15 +25,28 @@ export class TableComponent implements OnInit {
   }
   public settings$: Observable<any>;
   public studentData$: Observable<Student[]>;
+  public studentDataSubscription: Subscription;
+  public students: MatTableDataSource<Student[]>;
 
   constructor(private store: Store<any>) {
     this.settings$ = store.pipe(select(state => state.settings.columnOrder));
     this.studentData$ = store.pipe(select(state => state.students));
-    store.dispatch(loadStudentData());
   }
 
   ngOnInit(): void {
     this.store.dispatch(loadStudentData());
+
+    this.studentDataSubscription = this.studentData$.subscribe((students: any) => {
+      this.students = new MatTableDataSource<Student[]>(students);
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.students.sort = this.sort;
+  }
+
+  ngOnDestroy(): void {
+    this.studentDataSubscription.unsubscribe();
   }
 
   public columnDrop(event: CdkDragDrop<any>, columnOrder: string[]): void {
