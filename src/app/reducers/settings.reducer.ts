@@ -7,9 +7,10 @@ export const settingsInitialState: {[key: string]: any} = {
 
 const _settingsReducer = createReducer(settingsInitialState, 
     on(update, (state, action) => {
+        sessionStorage.setItem('column-order', JSON.stringify(action.order));
         return Object.assign({}, state, {columnOrder: action.order});
     }));
 
 export function SettingsReducer(state: any, action: Action) { 
-    return _settingsReducer(state, action)
+    return _settingsReducer(state, action);
 }
