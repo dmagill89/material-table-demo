@@ -1,6 +1,12 @@
 :host {
+
     table {
         margin: 0 auto;
         width: 90%;
+    }
+
+    mat-form-field {
+        margin: 1rem 0 0 4.3rem;
+        width: 30%;
     }
 }

@@ -1,5 +1,11 @@
 <ng-container *ngIf="(settings$ | async) as settings; else loading">
     <ng-container *ngIf="students">
+
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="filterStudents($event)" placeholder="Filter Students">
+        </mat-form-field>
+
         <table mat-table matSort [dataSource]="students" cdkDropListGroup>
 
             <ng-container *ngFor="let col of settings; let i=index;" matColumnDef="{{col}}" [sticky]="i==0">

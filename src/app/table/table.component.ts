@@ -66,4 +66,9 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     return newColumnOrder;
   }
+
+  filterStudents(event: Event): void {
+    const filterQuery = (event.target as HTMLInputElement).value;
+    this.students.filter = filterQuery.trim().toLowerCase();
+  }
 }

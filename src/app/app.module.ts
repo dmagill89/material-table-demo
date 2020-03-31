@@ -16,6 +16,8 @@ import { SettingsReducer } from './reducers/settings.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentEffects } from './effects/student.effects';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MatSortModule } from '@angular/material/sort';
     DragDropModule,
     EffectsModule.forRoot([StudentEffects]),
     NoopAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
